@@ -1,0 +1,52 @@
+//
+//  PrefixHeader.pch
+//  FindBusiness
+//
+//  Created by 星空浩 on 2017/1/3.
+//  Copyright © 2017年 DFYG_YF3. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+#import <Foundation/Foundation.h>
+#import <CoreTelephony/CTCarrier.h>
+#import <CoreTelephony/CTTelephonyNetworkInfo.h>
+#import <MBProgressHUD/MBProgressHUD.h>
+
+#import "Const.h"
+#import <UIKit/UIKit.h>
+#import <AFNetworking.h>
+#import "AppSingle.h"
+#import "NetWorkManager.h"
+#import "DFYGProgressHUD.h"
+#import "UIKit+BaseExtension.h"
+#import "UIImage+Color.h"
+#import "NSString+MD5.h"
+#import "DownloadManager.h"
+#import "FileManager.h"
+#endif /* PrefixHeader_pch */
+
+
+
+/********屏幕尺寸***********/
+#define STR_IS_NIL(key) (([@"<null>" isEqualToString:(key)] || [@"" isEqualToString:(key)] || key == nil || [key isKindOfClass:[NSNull class]]) ? 1: 0)
+
+#define kScreenBounds [[UIScreen mainScreen] bounds]
+
+#define SCREEN_WIDTH ([[UIScreen mainScreen] bounds].size.width)
+#define SCREEN_HEIGHT ([[UIScreen mainScreen] bounds].size.height)
+#define SCREEN_MAX_LENGTH (MAX(SCREEN_WIDTH, SCREEN_HEIGHT))
+#define SCREEN_MIN_LENGTH (MIN(SCREEN_WIDTH, SCREEN_HEIGHT))
+#define IS_IPHONE_4_OR_LESS (IS_IPHONE && SCREEN_MAX_LENGTH < 568.0)
+#define IS_IPHONE_5 (IS_IPHONE && SCREEN_MAX_LENGTH == 568.0)
+#define IS_IPHONE_6 (IS_IPHONE && SCREEN_MAX_LENGTH == 667.0)
+#define IS_IPHONE_6P (IS_IPHONE && SCREEN_MAX_LENGTH == 736.0)
+
+#define MainColor  [UIColor colorWithRed:253/255.0 green:152/255.0 blue:38/255.0 alpha:1]
+
+
+#define kNetworkType [AppSingle getNetworkType]
+
+#define APPSINGLE [AppSingle Shared]
+#define kNoNetwork @"no network"

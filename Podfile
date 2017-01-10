@@ -15,5 +15,8 @@ target ‘FindBusiness’ do
 
     pod 'Reachability', '~> 3.2'
 
+pod 'ASIHTTPRequest'
+
+pod 'BaiduMapKit' #百度地图SDK
 
 end

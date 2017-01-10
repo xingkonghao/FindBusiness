@@ -8,6 +8,7 @@
 
 #import "BaseSliderController.h"
 #import "BaseScrollView.h"
+#import "UIImage+Color.h"
 #define TopBtnHeight 35.0
 #define SliderViewHeight 2.0
 #define TopViewHeight 64.0

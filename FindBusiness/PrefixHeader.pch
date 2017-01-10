@@ -21,10 +21,10 @@
 #import "NetWorkManager.h"
 #import "DFYGProgressHUD.h"
 #import "UIKit+BaseExtension.h"
-#import "UIImage+Color.h"
 #import "NSString+MD5.h"
-#import "DownloadManager.h"
-#import "FileManager.h"
+#import "ZFDownloadManager.h"
+#import "UIImage+Color.h"
+#import "NSDate+Reversal.h"
 #endif /* PrefixHeader_pch */
 
 
@@ -44,6 +44,7 @@
 #define IS_IPHONE_6P (IS_IPHONE && SCREEN_MAX_LENGTH == 736.0)
 
 #define MainColor  [UIColor colorWithRed:253/255.0 green:152/255.0 blue:38/255.0 alpha:1]
+#define FILE_PATH(name)      [NSString stringWithFormat:@"%@/%@",[ZFCommonHelper createFolder:FILE_FOLDER],name]
 
 
 #define kNetworkType [AppSingle getNetworkType]

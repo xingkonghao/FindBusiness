@@ -8,12 +8,16 @@
 
 #import "WebViewController.h"
 #import "LoginView.h"
-#import "DownloadVC.h"
 #import "EmptyView.h"
+#import "ZFDownloadViewController.h"
+#import "BusinessManagerViewController.h"
+
 @interface WebViewController ()<UIWebViewDelegate>
 {
     BOOL isLogin;
     BOOL isMenuShow;
+    
+    BOOL test;
 }
 @property (strong, nonatomic)  UIWebView *webView;
 @property (weak, nonatomic) IBOutlet UIView *leftMenu;
@@ -81,7 +85,7 @@
     if (!_webView) {
         UIWebView * webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64)];
         webView.delegate = self;
-        webView.scrollView.scrollEnabled = NO;
+//        webView.scrollView.scrollEnabled = NO;
         webView.scalesPageToFit = YES;
 //        [self.view addSubview:_webView];stringByAddingPercentEscapesUsingEncoding
         _webView = webView;
@@ -194,9 +198,12 @@
     [self deleteUserInfo];
 }
 - (IBAction)businessAction:(id)sender {
+    BusinessManagerViewController *vc = [BusinessManagerViewController new];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 - (IBAction)dowloadAction:(id)sender {
-}
+    ZFDownloadViewController *vc = [[ZFDownloadViewController alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -224,8 +231,24 @@
 
     NSString *url = request.URL.absoluteString;
     if ([url rangeOfString:@"PDF"].location != NSNotFound) {
-        [[DownloadManager shareManager]addNewDownloadTask:url];
-        DownloadVC *vc = [[DownloadVC alloc]init];
+      
+//        url =test?@"http://v2.topu.com/course/201611/y8hdAiDn7H.mp4":@"http://v2.topu.com/course/201611/T6jnna3JBx.mp4";
+//       
+//        test = !test;
+        NSString *name = [[url componentsSeparatedByString:@"/"] lastObject];
+        UIWebView *web = [[UIWebView alloc] init];
+        
+        NSString *sc = [NSString stringWithFormat:@"decodeURIComponent('%@')",name];
+        
+        NSString *st = [web stringByEvaluatingJavaScriptFromString:sc];
+        
+        [[ZFDownloadManager sharedDownloadManager] downFileUrl:url filename:st fileimage:nil];
+        // 设置最多同时下载个数（默认是3）
+        [ZFDownloadManager sharedDownloadManager].maxCount = 2;
+
+//        [[DownloadManager shareManager]addNewDownloadTask:url];
+        ZFDownloadViewController *vc = [[ZFDownloadViewController alloc]init];
+//        DownloadVC *vc = [[DownloadVC alloc]init];
         [self.navigationController pushViewController:vc animated:YES];
         return NO;
     }

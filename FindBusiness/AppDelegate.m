@@ -9,8 +9,12 @@
 #import "AppDelegate.h"
 #import "BaseNaviController.h"
 #import "WebViewController.h"
-@interface AppDelegate ()
+#import <BaiduMapAPI_Base/BMKMapManager.h>
+#define BaiduKey @"KzS8feqrC50kyiyxk9tGapMLWy72DwGD"
 
+@interface AppDelegate ()<BMKGeneralDelegate>{
+    BMKMapManager *_mapManager;
+}
 @end
 
 @implementation AppDelegate
@@ -21,10 +25,19 @@
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
     [self setupUI];
+    [self setBaiduSDK];
     [self.window makeKeyAndVisible];
-    [DownloadManager shareManager];
     return YES;
 }
+- (void)setBaiduSDK
+{
+    _mapManager = [[BMKMapManager alloc]init];
+    BOOL ret = [_mapManager start:BaiduKey generalDelegate:self];
+    if (!ret) {
+        NSLog(@"baidumap start failed!");
+    }
+}
+
 -(void)setupUI
 {
     BaseNaviController *navi = [[BaseNaviController alloc]initWithRootViewController:[[WebViewController alloc]init]];

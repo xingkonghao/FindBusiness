@@ -15,7 +15,7 @@
 #import "FileManager.h"
 
 
-@interface CreatBusinessVC ()<CLLocationManagerDelegate,BMKGeneralDelegate,BMKLocationServiceDelegate,BMKGeoCodeSearchDelegate>
+@interface CreatBusinessVC ()<CLLocationManagerDelegate,BMKGeneralDelegate,BMKLocationServiceDelegate,BMKGeoCodeSearchDelegate,UITextFieldDelegate>
 {
     CLLocationManager *_locationManager;
     NSMutableArray *arr1;
@@ -23,7 +23,7 @@
     BMKGeoCodeSearch *_search;
     BMKReverseGeoCodeOption *_opt;
     BMKLocationService *_locService;
-
+    NSString *netType;
 }
 @property (weak, nonatomic) IBOutlet UITextField *name;
 @property (weak, nonatomic) IBOutlet UILabel *locaton;
@@ -43,16 +43,78 @@
 @end
 
 @implementation CreatBusinessVC
+-(instancetype)initWithDict:(NSDictionary *)dict
+{
+    if (self = [super init]) {
+        _params = [NSMutableDictionary dictionaryWithDictionary:dict];
+    }
+    return self;
+}
+-(instancetype)init
+{
+    if (self = [super init]) {
+        self.params = [NSMutableDictionary dictionary];
 
+    }
+    return self;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
+  
     self.edgesForExtendedLayout = UIRectEdgeNone;
     [self creatNavi];
     self.title = @"创建商机";
-    self.params = [NSMutableDictionary dictionary];
     arr1 = [NSMutableArray array];
     arr2 =[NSMutableArray array];
+    
+    _btn1.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5,120);
+    _btn3.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5,120);
+    
+    _btn2.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5,70);
+    _btn4.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5,60);
+    _btn5.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5,60);
+    _btn6.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5,60);
+
+    
     [self locationSet];
+    [self loadBeforeData];
+}
+-(void)loadBeforeData
+{
+    if (_params.allKeys.count>0) {
+        self.name.text = _params[@"name"];
+        self.longtitude = _params[@"jing"];
+        self.atitude = _params[@"wei"];
+        NSString *location = [NSString stringWithFormat:@"经度：%@|纬度：%@",_params[@"jing"],_params[@"wei"]];
+        self.locaton.text = STR_IS_NIL(_params[@"local"])?location:_params[@"local"];
+        self.mianji.text = _params[@"mianji"];
+        self.dongshu.text = _params[@"dongshu"];
+        arr1 = [NSMutableArray arrayWithArray:[_params[@"jiegou"] componentsSeparatedByString:@"|"]];
+        arr2 = [NSMutableArray arrayWithArray:[_params[@"xiaofang"] componentsSeparatedByString:@"|"]];
+        for (NSString *txt in arr1) {
+            if ([txt isEqualToString:@"钢或砖混结构"]) {
+                _btn1.selected = YES;
+            }else if ([txt isEqualToString:@"轻钢结构"])
+            {
+                _btn2.selected = YES;
+            }else if ([txt isEqualToString:@"砖墙钢顶或重钢"])
+            {
+                _btn3.selected = YES;
+            }else
+            {
+                _btn4.selected = YES;
+            }
+        }
+        for (NSString *txt in arr2) {
+            if ([txt isEqualToString:@"消防栓"]) {
+                _btn5.selected = YES;
+            }else if ([txt isEqualToString:@"灭火器"])
+            {
+                _btn6.selected = YES;
+            }
+        }
+
+    }
 }
 - (IBAction)locationAction:(id)sender {
     [self loactionAction];
@@ -75,12 +137,17 @@
     back.frame = CGRectMake(0,20, 45,44);
     
     UIImage *image = [UIImage imageNamed:@"back"];
-    image = [image imageWithColor:[UIColor blackColor]];
+//    image = [image imageWithColor:[UIColor blackColor]];
     [back setImage:image forState:UIControlStateNormal];
     [back addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:back];
     
-
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:kNetworkType style:UIBarButtonItemStylePlain target:self action:@selector(noAction)];
+    self.navigationItem.rightBarButtonItem.tintColor = [UIColor whiteColor];
+}
+-(void)noAction
+{
+    
 }
 -(void)backAction
 {
@@ -125,7 +192,7 @@
             break;
         case 103:
             if (sender.selected) {
-                [arr1 addObject:@"其他结构"];
+                [arr1 addObject:@"其他"];
             }else
             {
                 if ([arr1 containsObject:@"其他"]) {
@@ -161,13 +228,30 @@
     }
 }
 - (IBAction)creatAction:(id)sender {
-    if (self.name.text.length==0||self.locaton.text.length==0||self.dongshu.text==0||self.mianji.text==0) {
-        [DFYGProgressHUD showProgressHUDWithMode:ProgressHUDModeOnlyText withText:@"有必填选项未填写" afterDelay:1.5 isTouched:YES inView:nil];
+    if (self.name.text.length<=0) {
+        [DFYGProgressHUD showProgressHUDWithMode:ProgressHUDModeOnlyText withText:@"请填写商机名称" afterDelay:1.5 isTouched:YES inView:nil];
+        return;
+    }
+    if (self.locaton.text.length==0) {
+        [DFYGProgressHUD showProgressHUDWithMode:ProgressHUDModeOnlyText withText:@"请填写定位信息" afterDelay:1.5 isTouched:YES inView:nil];
+        return;
+    }
+    if (self.dongshu.text.length==0) {
+        [DFYGProgressHUD showProgressHUDWithMode:ProgressHUDModeOnlyText withText:@"请填写房屋栋数" afterDelay:1.5 isTouched:YES inView:nil];
+        return;
+    }
+    if (self.mianji.text.length ==0) {
+        [DFYGProgressHUD showProgressHUDWithMode:ProgressHUDModeOnlyText withText:@"请填写最大面积" afterDelay:1.5 isTouched:YES inView:nil];
         return;
     }
     NSUserDefaults *userManager = [NSUserDefaults standardUserDefaults];
     NSDictionary *userInfo = [userManager objectForKey:@"userInfo"];
-    NSString *dateStr = [NSDate dateToString:[NSDate date]];
+    
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+    formatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"zh_CN"];
+    formatter.dateFormat = @"yyyyMMddHHmmss";
+    NSString *dateStr = [formatter stringFromDate:[NSDate date]];
 
     [self.params setObject:userInfo[@"username"] forKey:@"user"];
     [self.params setObject:userInfo[@"UM"] forKey:@"code"];
@@ -210,7 +294,12 @@
 {
     [_locService startUserLocationService];
 }
-
+#pragma textfileDelegate
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
+}
 #pragma mark 百度地图delegate
 - (void)didUpdateBMKUserLocation:(BMKUserLocation *)userLocation
 {
@@ -241,7 +330,7 @@
 -(void)didFailToLocateUserWithError:(NSError *)error
 {
     
-    NSLog(@"%@",error.description);
+//    NSLog(@"%@",error.description);
     if (error.code ==1)
     {
         
@@ -249,7 +338,7 @@
 }
 - (void)didUpdateUserHeading:(BMKUserLocation *)userLocation
 {
-    NSLog(@"%@",userLocation.heading);
+//    NSLog(@"%@",userLocation.heading);
 }
 
 - (void)onGetGeoCodeResult:(BMKGeoCodeSearch *)searcher result:(BMKGeoCodeResult *)result errorCode:(BMKSearchErrorCode)error
@@ -267,7 +356,12 @@
         
     }
 }
-
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    [_name resignFirstResponder];
+    [_dongshu resignFirstResponder];
+    [_mianji resignFirstResponder];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

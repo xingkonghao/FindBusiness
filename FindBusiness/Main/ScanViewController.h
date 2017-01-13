@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface ScanViewController : UIViewController
-
+-(instancetype)initWithParams:(NSDictionary*)dict;
 @end

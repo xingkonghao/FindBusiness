@@ -74,7 +74,11 @@ static ZFDownloadManager *sharedDownloadManager = nil;
     }
     return self;
 }
-
+-(void)loadData;
+{
+    [self loadFinishedfiles];
+    [self loadTempfiles];
+}
 - (void)cleanLastInfo
 {
     for (ZFHttpRequest *request in _downinglist) {
@@ -501,6 +505,7 @@ static ZFDownloadManager *sharedDownloadManager = nil;
  */
 - (void)loadFinishedfiles
 {
+    NSLog(@"**********%@",PLIST_PATH);
     if ([[NSFileManager defaultManager] fileExistsAtPath:PLIST_PATH]) {
         NSMutableArray *finishArr = [[NSMutableArray alloc] initWithContentsOfFile:PLIST_PATH];
         for (NSDictionary *dic in finishArr) {
@@ -529,7 +534,7 @@ static ZFDownloadManager *sharedDownloadManager = nil;
                                  imagedata,@"fileimage", nil];
         [finishedinfo addObject:filedic];
     }
-    
+//    NSLog(@"%@",PLIST_PATH);
     if (![finishedinfo writeToFile:PLIST_PATH atomically:YES]) {
         NSLog(@"write plist fail");
     }
@@ -639,14 +644,16 @@ static ZFDownloadManager *sharedDownloadManager = nil;
         NSInteger delindex = -1;
         NSString *path = FILE_PATH(_fileInfo.fileName);
         if([ZFCommonHelper isExistFile:path]) { //已经下载过一次该文件
-            for (ZFFileModel *info in _finishedlist) {
+            NSMutableArray *tempArr = [_finishedlist mutableCopy];
+            for (ZFFileModel *info in tempArr) {
                 if ([info.fileName isEqualToString:_fileInfo.fileName]) {
                     // 删除文件
                     [self deleteFinishFile:info];
                 }
             }
         } else { // 如果正在下载中，择重新下载
-            for(ZFHttpRequest *request in self.downinglist) {
+            NSMutableArray *tempArr = [self.downinglist mutableCopy];
+            for(ZFHttpRequest *request in tempArr) {
                 ZFFileModel *ZFFileModel = [request.userInfo objectForKey:@"File"];
                 if([ZFFileModel.fileName isEqualToString:_fileInfo.fileName])
                 {
@@ -658,8 +665,9 @@ static ZFDownloadManager *sharedDownloadManager = nil;
                 }
             }
             [_downinglist removeObjectAtIndex:delindex];
-            
-            for (ZFFileModel *file in _filelist) {
+            NSMutableArray *tempArr1 = [_filelist mutableCopy];
+
+            for (ZFFileModel *file in tempArr1) {
                 if ([file.fileName isEqualToString:_fileInfo.fileName]) {
                     delindex = [_filelist indexOfObject:file];
                     break;

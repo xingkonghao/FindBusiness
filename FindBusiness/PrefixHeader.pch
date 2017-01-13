@@ -25,6 +25,7 @@
 #import "ZFDownloadManager.h"
 #import "UIImage+Color.h"
 #import "NSDate+Reversal.h"
+#import "FileManager.h"
 #endif /* PrefixHeader_pch */
 
 
@@ -46,8 +47,10 @@
 #define MainColor  [UIColor colorWithRed:253/255.0 green:152/255.0 blue:38/255.0 alpha:1]
 #define FILE_PATH(name)      [NSString stringWithFormat:@"%@/%@",[ZFCommonHelper createFolder:FILE_FOLDER],name]
 
+#define WS(weakSelf)  __weak __typeof(&*self)weakSelf = self;
 
 #define kNetworkType [AppSingle getNetworkType]
 
 #define APPSINGLE [AppSingle Shared]
-#define kNoNetwork @"no network"
+#define kNoNetwork @"无网络"
+#define User_UM [FileManager getUserUM]

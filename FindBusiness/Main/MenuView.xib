@@ -32,7 +32,7 @@
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DaB-aB-AOw">
                             <rect key="frame" x="5" y="65" width="230" height="45"/>
                             <color key="backgroundColor" red="1" green="0.62352941179999999" blue="0.090196078430000007" alpha="1" colorSpace="calibratedRGB"/>
-                            <state key="normal" title="上传商机"/>
+                            <state key="normal" title="修改商机"/>
                             <connections>
                                 <action selector="changeAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="467-0h-BZu"/>
                             </connections>
@@ -40,7 +40,7 @@
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pRy-WB-kp2">
                             <rect key="frame" x="5" y="120" width="230" height="45"/>
                             <color key="backgroundColor" red="1" green="0.62352941179999999" blue="0.090196078430000007" alpha="1" colorSpace="calibratedRGB"/>
-                            <state key="normal" title="上传商机"/>
+                            <state key="normal" title="商机查勘"/>
                             <connections>
                                 <action selector="choosenAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="963-4g-2m0"/>
                             </connections>
@@ -48,7 +48,7 @@
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nzE-0x-6Rp">
                             <rect key="frame" x="5" y="175" width="230" height="45"/>
                             <color key="backgroundColor" red="1" green="0.62352941179999999" blue="0.090196078430000007" alpha="1" colorSpace="calibratedRGB"/>
-                            <state key="normal" title="上传商机"/>
+                            <state key="normal" title="商机预览"/>
                             <connections>
                                 <action selector="scanAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="DeG-PJ-0Pt"/>
                             </connections>

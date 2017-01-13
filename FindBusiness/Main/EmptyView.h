@@ -11,4 +11,5 @@
 @interface EmptyView : UIView
 @property (nonatomic,strong)UILabel *reminderLab;
 @property (nonatomic,strong)UIImageView *remiderImage;
+@property (nonatomic,strong)NSString *remiderInfo;
 @end

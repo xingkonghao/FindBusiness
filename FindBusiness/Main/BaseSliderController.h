@@ -20,6 +20,8 @@
 @property (nonatomic, strong) NSArray *topTitles;
 @property (nonatomic) CGFloat topBtnWidth;
 @property (nonatomic) CGFloat sliderWidth;
+@property (nonatomic, strong) UIView *topView;
+@property (nonatomic, assign) NSInteger currentIndex;
 
 @property (nonatomic, strong) NSArray *sliderViewControllers;
 @property (nonatomic, strong, readonly) BaseScrollView *contentScrollView;

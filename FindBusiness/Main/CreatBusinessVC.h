@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface CreatBusinessVC : UIViewController
-
+-(instancetype)initWithDict:(NSDictionary*)dict;
 @end

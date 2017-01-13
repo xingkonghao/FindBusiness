@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ExampleView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P3C-hd-zWD">
+                    <rect key="frame" x="0.0" y="622" width="187.5" height="45"/>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="45" id="j5c-4l-Tvj"/>
+                    </constraints>
+                    <state key="normal" title="放弃拍照">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="giveUpAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="Hvw-vR-8VR"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ALB-xX-bHW">
+                    <rect key="frame" x="187.5" y="622" width="187.5" height="45"/>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="45" id="nuy-yS-D9X"/>
+                    </constraints>
+                    <state key="normal" title="开始拍照">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="goOnaction:" destination="iN0-l3-epB" eventType="touchUpInside" id="wCp-cy-245"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="ALB-xX-bHW" firstAttribute="width" secondItem="P3C-hd-zWD" secondAttribute="width" id="A8e-6d-6wh"/>
+                <constraint firstAttribute="trailing" secondItem="ALB-xX-bHW" secondAttribute="trailing" id="MDS-mI-KRo"/>
+                <constraint firstAttribute="bottom" secondItem="P3C-hd-zWD" secondAttribute="bottom" id="QQx-G6-9dl"/>
+                <constraint firstItem="ALB-xX-bHW" firstAttribute="leading" secondItem="P3C-hd-zWD" secondAttribute="trailing" id="Vsy-3y-1hp"/>
+                <constraint firstItem="ALB-xX-bHW" firstAttribute="leading" secondItem="P3C-hd-zWD" secondAttribute="trailing" id="cud-63-4sw"/>
+                <constraint firstItem="P3C-hd-zWD" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="gfy-pP-zcI"/>
+                <constraint firstAttribute="bottom" secondItem="ALB-xX-bHW" secondAttribute="bottom" id="tQP-GK-Dag"/>
+            </constraints>
+            <connections>
+                <outlet property="giveUp" destination="P3C-hd-zWD" id="LPk-wj-43q"/>
+                <outlet property="goOn" destination="ALB-xX-bHW" id="GMr-cQ-nML"/>
+            </connections>
+            <point key="canvasLocation" x="33.5" y="73.5"/>
+        </view>
+    </objects>
+</document>

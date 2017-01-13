@@ -96,6 +96,11 @@
  */
 - (void)pauseAllDownloads;
 
+/**
+ * 重新加载已下载完成的和未下载完成的信息
+ */
+-(void)loadData;
+
 @end
 
 

@@ -11,7 +11,7 @@
 #import "EmptyView.h"
 #import "ZFDownloadViewController.h"
 #import "BusinessManagerViewController.h"
-
+#import "DownloadVC.h"
 @interface WebViewController ()<UIWebViewDelegate>
 {
     BOOL isLogin;
@@ -39,7 +39,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
 //    self.navigationController.automaticallyAdjustsScrollViewInsets = YES;
     self.edgesForExtendedLayout = UIRectEdgeNone;
-
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(reloadWeb) name:@"uploadSuccess" object:nil];
     [self checkLogin];
     [self setupView];                                                            
 }
@@ -65,11 +65,18 @@
     NSUserDefaults *userManager = [NSUserDefaults standardUserDefaults];
     [userManager removeObjectForKey:@"userInfo"];
     [userManager synchronize];
+    
+    [[ZFDownloadManager sharedDownloadManager]clearAllRquests];
+    [[ZFDownloadManager sharedDownloadManager]clearAllFinished];
 }
-
+-(void)reloadWeb
+{
+    [self.webView reload];
+}
 -(void)setupView
 {
     [self creatNavi];
+//    [self.view addSubview:self.webView];
     if (isLogin) {
         [self loadWebView:self.userName.text];
 
@@ -87,6 +94,7 @@
         webView.delegate = self;
 //        webView.scrollView.scrollEnabled = NO;
         webView.scalesPageToFit = YES;
+        webView.backgroundColor = [UIColor whiteColor];
 //        [self.view addSubview:_webView];stringByAddingPercentEscapesUsingEncoding
         _webView = webView;
         [self.view insertSubview:_webView belowSubview:self.leftMenu];
@@ -107,6 +115,8 @@
     
     UIButton *showMenu = [UIButton buttonWithType:UIButtonTypeCustom];
     showMenu.frame = CGRectMake(0, 0, 40, 40);
+    showMenu.layer.cornerRadius = 20;
+    showMenu.layer.masksToBounds = YES;
     [showMenu setImage:[UIImage imageNamed:@"menu"] forState:UIControlStateNormal];
     [showMenu addTarget:self action:@selector(showMenu:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:showMenu];
@@ -148,8 +158,7 @@
 -(UIControl*)hiddenControl
 {
     if (!_hiddenControl) {
-        UIControl *hiddenControl = [[UIControl alloc]initWithFrame:CGRectMake(200, 0, self.view.frame.size.width-200, self.view.frame.size.height)];
-        hiddenControl.backgroundColor = [[UIColor blackColor]colorWithAlphaComponent:0.3];
+        UIControl *hiddenControl = [[UIControl alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
         [hiddenControl addTarget:self action:@selector(hiddenMenu) forControlEvents:UIControlEventAllEvents];
         _hiddenControl = hiddenControl;
         
@@ -162,11 +171,14 @@
         if (!isMenuShow) {
             isMenuShow = YES;
             [UIView animateWithDuration:0.5 animations:^{
+                [self.view insertSubview:self.hiddenControl belowSubview:self.leftMenu];
+                _hiddenControl.backgroundColor = [[UIColor blackColor]colorWithAlphaComponent:0.3];
+
                 self.leftConstrant.constant = 0;
                 [self.view layoutIfNeeded];
                 
             } completion:^(BOOL finished) {
-                [self.view addSubview:self.hiddenControl];
+//                [self.view addSubview:self.hiddenControl];
             }];
         }else
         {
@@ -202,7 +214,7 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 - (IBAction)dowloadAction:(id)sender {
-    ZFDownloadViewController *vc = [[ZFDownloadViewController alloc]init];
+    DownloadVC *vc = [[DownloadVC alloc]init];
     [self.navigationController pushViewController:vc animated:YES];}
 
 - (void)didReceiveMemoryWarning {
@@ -242,13 +254,14 @@
         
         NSString *st = [web stringByEvaluatingJavaScriptFromString:sc];
         
+        
         [[ZFDownloadManager sharedDownloadManager] downFileUrl:url filename:st fileimage:nil];
         // 设置最多同时下载个数（默认是3）
-        [ZFDownloadManager sharedDownloadManager].maxCount = 2;
+        [ZFDownloadManager sharedDownloadManager].maxCount = 1;
 
-//        [[DownloadManager shareManager]addNewDownloadTask:url];
-        ZFDownloadViewController *vc = [[ZFDownloadViewController alloc]init];
-//        DownloadVC *vc = [[DownloadVC alloc]init];
+//        ZFDownloadViewController *vc = [[ZFDownloadViewController alloc]init];
+        DownloadVC *vc = [[DownloadVC alloc]initWithIndex:1];
+
         [self.navigationController pushViewController:vc animated:YES];
         return NO;
     }

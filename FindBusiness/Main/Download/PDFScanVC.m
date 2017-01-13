@@ -26,11 +26,11 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"DPF浏览";
-    
-    [self creatNavi];
+    self.title = _model.fileName;
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    [self creatNavi];//FILE_FOLDER
     NSString *filePath = FILE_PATH(_model.fileName);
-
+  BOOL exist =  [[NSFileManager defaultManager] fileExistsAtPath:filePath];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL fileURLWithPath:filePath]];
     _web.delegate = self;
     [_web loadRequest:request];
@@ -41,7 +41,6 @@
     back.frame = CGRectMake(0,20, 45,44);
     
     UIImage *image = [UIImage imageNamed:@"back"];
-    image = [image imageWithColor:[UIColor blackColor]];
     [back setImage:image forState:UIControlStateNormal];
     [back addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:back];
@@ -51,7 +50,6 @@
     share.frame = CGRectMake(10,20, 45,44);
     
     UIImage *image1 = [UIImage imageNamed:@"abc_ic_menu_share_mtrl_alpha"];
-    image1 = [image1 imageWithColor:[UIColor blackColor]];
 
     [share setImage:image1 forState:UIControlStateNormal];
     [share addTarget:self action:@selector(share) forControlEvents:UIControlEventTouchUpInside];

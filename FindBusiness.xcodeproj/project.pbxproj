@@ -32,6 +32,8 @@
 		D125A40D1E1B367700A4073A /* WebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D125A40B1E1B367700A4073A /* WebViewController.xib */; };
 		D125A4121E1B37E500A4073A /* BaseNaviController.m in Sources */ = {isa = PBXBuildFile; fileRef = D125A4111E1B37E500A4073A /* BaseNaviController.m */; };
 		D125A4161E1B4BFA00A4073A /* Const.m in Sources */ = {isa = PBXBuildFile; fileRef = D125A4151E1B4BFA00A4073A /* Const.m */; };
+		D175270C1E2639A1000135CE /* ExampleView.m in Sources */ = {isa = PBXBuildFile; fileRef = D175270B1E2639A1000135CE /* ExampleView.m */; };
+		D175270E1E2639AA000135CE /* View.xib in Resources */ = {isa = PBXBuildFile; fileRef = D175270D1E2639AA000135CE /* View.xib */; };
 		D17C7B3C1E1B8C0500A9801E /* NetWorkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D17C7B3B1E1B8C0500A9801E /* NetWorkManager.m */; };
 		D17C7B421E1B8CD900A9801E /* AppSingle.m in Sources */ = {isa = PBXBuildFile; fileRef = D17C7B3F1E1B8CD900A9801E /* AppSingle.m */; };
 		D17C7B431E1B8CD900A9801E /* DFYGProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = D17C7B411E1B8CD900A9801E /* DFYGProgressHUD.m */; };
@@ -53,8 +55,6 @@
 		D18E0CD81E1F838600D98353 /* UIImage+Color.m in Sources */ = {isa = PBXBuildFile; fileRef = D18E0CD71E1F838600D98353 /* UIImage+Color.m */; };
 		D18E0CDC1E1F840100D98353 /* PDFScanVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D18E0CDA1E1F840100D98353 /* PDFScanVC.m */; };
 		D18E0CDD1E1F840100D98353 /* PDFScanVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = D18E0CDB1E1F840100D98353 /* PDFScanVC.xib */; };
-		D18E0CDF1E1F878D00D98353 /* 123.pdf in Resources */ = {isa = PBXBuildFile; fileRef = D18E0CDE1E1F878D00D98353 /* 123.pdf */; };
-		D18E0CE11E1F888900D98353 /* test.pdf in Resources */ = {isa = PBXBuildFile; fileRef = D18E0CE01E1F888900D98353 /* test.pdf */; };
 		D19D37AE1E2473ED004040DC /* CameraSessionView.m in Sources */ = {isa = PBXBuildFile; fileRef = D19D37921E2473ED004040DC /* CameraSessionView.m */; };
 		D19D37B01E2473ED004040DC /* CameraDismissButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D19D37971E2473ED004040DC /* CameraDismissButton.m */; };
 		D19D37B11E2473ED004040DC /* CameraFlashButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D19D37991E2473ED004040DC /* CameraFlashButton.m */; };
@@ -76,6 +76,11 @@
 		D1A2A7A11E135772007A978B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D1A2A79F1E135772007A978B /* LaunchScreen.storyboard */; };
 		D1A2A7AC1E135772007A978B /* FindBusinessTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D1A2A7AB1E135772007A978B /* FindBusinessTests.m */; };
 		D1A2A7B71E135772007A978B /* FindBusinessUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = D1A2A7B61E135772007A978B /* FindBusinessUITests.m */; };
+		D1AB4F651E25E636008D6A90 /* ScanViewHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = D1AB4F631E25E636008D6A90 /* ScanViewHeader.m */; };
+		D1AB4F661E25E636008D6A90 /* ScanViewHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1AB4F641E25E636008D6A90 /* ScanViewHeader.xib */; };
+		D1BAC04A1E2712E700CD8833 /* DownloadVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D1BAC0491E2712E700CD8833 /* DownloadVC.m */; };
+		D1BAC04E1E27355D00CD8833 /* UploadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1BAC04C1E27355D00CD8833 /* UploadViewController.m */; };
+		D1BAC04F1E27355D00CD8833 /* UploadViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1BAC04D1E27355D00CD8833 /* UploadViewController.xib */; };
 		D1DEC68D1E1B766D00C2A165 /* LoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = D1DEC68C1E1B766D00C2A165 /* LoginView.m */; };
 		D1DEC68F1E1B767B00C2A165 /* LoginView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1DEC68E1E1B767B00C2A165 /* LoginView.xib */; };
 /* End PBXBuildFile section */
@@ -141,6 +146,9 @@
 		D125A4141E1B4BFA00A4073A /* Const.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Const.h; sourceTree = "<group>"; };
 		D125A4151E1B4BFA00A4073A /* Const.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Const.m; sourceTree = "<group>"; };
 		D125A4171E1B4E7300A4073A /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		D175270A1E2639A1000135CE /* ExampleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExampleView.h; sourceTree = "<group>"; };
+		D175270B1E2639A1000135CE /* ExampleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExampleView.m; sourceTree = "<group>"; };
+		D175270D1E2639AA000135CE /* View.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = View.xib; sourceTree = "<group>"; };
 		D17C7B3A1E1B8C0500A9801E /* NetWorkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetWorkManager.h; sourceTree = "<group>"; };
 		D17C7B3B1E1B8C0500A9801E /* NetWorkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetWorkManager.m; sourceTree = "<group>"; };
 		D17C7B3E1E1B8CD900A9801E /* AppSingle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppSingle.h; sourceTree = "<group>"; };
@@ -179,8 +187,6 @@
 		D18E0CD91E1F840100D98353 /* PDFScanVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDFScanVC.h; sourceTree = "<group>"; };
 		D18E0CDA1E1F840100D98353 /* PDFScanVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDFScanVC.m; sourceTree = "<group>"; };
 		D18E0CDB1E1F840100D98353 /* PDFScanVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PDFScanVC.xib; sourceTree = "<group>"; };
-		D18E0CDE1E1F878D00D98353 /* 123.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = 123.pdf; sourceTree = "<group>"; };
-		D18E0CE01E1F888900D98353 /* test.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = test.pdf; sourceTree = "<group>"; };
 		D19D37911E2473ED004040DC /* CameraSessionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraSessionView.h; sourceTree = "<group>"; };
 		D19D37921E2473ED004040DC /* CameraSessionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraSessionView.m; sourceTree = "<group>"; };
 		D19D37961E2473ED004040DC /* CameraDismissButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraDismissButton.h; sourceTree = "<group>"; };
@@ -221,6 +227,14 @@
 		D1A2A7B21E135772007A978B /* FindBusinessUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FindBusinessUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1A2A7B61E135772007A978B /* FindBusinessUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FindBusinessUITests.m; sourceTree = "<group>"; };
 		D1A2A7B81E135772007A978B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D1AB4F621E25E636008D6A90 /* ScanViewHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanViewHeader.h; sourceTree = "<group>"; };
+		D1AB4F631E25E636008D6A90 /* ScanViewHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanViewHeader.m; sourceTree = "<group>"; };
+		D1AB4F641E25E636008D6A90 /* ScanViewHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScanViewHeader.xib; sourceTree = "<group>"; };
+		D1BAC0481E2712E700CD8833 /* DownloadVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadVC.h; sourceTree = "<group>"; };
+		D1BAC0491E2712E700CD8833 /* DownloadVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadVC.m; sourceTree = "<group>"; };
+		D1BAC04B1E27355D00CD8833 /* UploadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadViewController.h; sourceTree = "<group>"; };
+		D1BAC04C1E27355D00CD8833 /* UploadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadViewController.m; sourceTree = "<group>"; };
+		D1BAC04D1E27355D00CD8833 /* UploadViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UploadViewController.xib; sourceTree = "<group>"; };
 		D1DEC68B1E1B766D00C2A165 /* LoginView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginView.h; sourceTree = "<group>"; };
 		D1DEC68C1E1B766D00C2A165 /* LoginView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginView.m; sourceTree = "<group>"; };
 		D1DEC68E1E1B767B00C2A165 /* LoginView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginView.xib; sourceTree = "<group>"; };
@@ -280,12 +294,21 @@
 				D107FB961E239219000526BF /* AlbumCollectionCell.h */,
 				D107FB971E239219000526BF /* AlbumCollectionCell.m */,
 				D107FB981E239219000526BF /* AlbumCollectionCell.xib */,
+				D1AB4F621E25E636008D6A90 /* ScanViewHeader.h */,
+				D1AB4F631E25E636008D6A90 /* ScanViewHeader.m */,
+				D1AB4F641E25E636008D6A90 /* ScanViewHeader.xib */,
+				D175270A1E2639A1000135CE /* ExampleView.h */,
+				D175270B1E2639A1000135CE /* ExampleView.m */,
+				D175270D1E2639AA000135CE /* View.xib */,
 				D107FB8A1E238A05000526BF /* MenuView.h */,
 				D107FB8B1E238A05000526BF /* MenuView.m */,
 				D107FB8D1E238A13000526BF /* MenuView.xib */,
 				D107FB361E232918000526BF /* CreatBusinessVC.h */,
 				D107FB371E232918000526BF /* CreatBusinessVC.m */,
 				D107FB381E232918000526BF /* CreatBusinessVC.xib */,
+				D1BAC04B1E27355D00CD8833 /* UploadViewController.h */,
+				D1BAC04C1E27355D00CD8833 /* UploadViewController.m */,
+				D1BAC04D1E27355D00CD8833 /* UploadViewController.xib */,
 				D107FB311E232480000526BF /* BusinessCell.h */,
 				D107FB321E232480000526BF /* BusinessCell.m */,
 				D107FB331E232480000526BF /* BusinessCell.xib */,
@@ -429,6 +452,8 @@
 		D18E0CC61E1F6E4700D98353 /* Download */ = {
 			isa = PBXGroup;
 			children = (
+				D1BAC0481E2712E700CD8833 /* DownloadVC.h */,
+				D1BAC0491E2712E700CD8833 /* DownloadVC.m */,
 				D18E0CC71E1F6E4700D98353 /* ZFDownloadedCell.h */,
 				D18E0CC81E1F6E4700D98353 /* ZFDownloadedCell.m */,
 				D18E0CD21E1F7A9500D98353 /* ZFDownloadedCell.xib */,
@@ -549,8 +574,6 @@
 		D1A2A7901E135772007A978B /* FindBusiness */ = {
 			isa = PBXGroup;
 			children = (
-				D18E0CE01E1F888900D98353 /* test.pdf */,
-				D18E0CDE1E1F878D00D98353 /* 123.pdf */,
 				D1A2A7941E135772007A978B /* AppDelegate.h */,
 				D1A2A7951E135772007A978B /* AppDelegate.m */,
 				D1A2A7971E135772007A978B /* ViewController.h */,
@@ -740,17 +763,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D1AB4F661E25E636008D6A90 /* ScanViewHeader.xib in Resources */,
+				D1BAC04F1E27355D00CD8833 /* UploadViewController.xib in Resources */,
 				D107FB301E2323DC000526BF /* BusinessManagerViewController.xib in Resources */,
-				D18E0CE11E1F888900D98353 /* test.pdf in Resources */,
 				D19D37B71E2473ED004040DC /* PaintCodeFile.pcvd in Resources */,
 				D1A2A7A11E135772007A978B /* LaunchScreen.storyboard in Resources */,
 				D18E0CD11E1F794700D98353 /* DFDownloadViewController.xib in Resources */,
 				D18E0CD51E1F7C2600D98353 /* ZFDownloadingCell.xib in Resources */,
+				D175270E1E2639AA000135CE /* View.xib in Resources */,
 				D107FB351E232480000526BF /* BusinessCell.xib in Resources */,
 				D1A2A79E1E135772007A978B /* Assets.xcassets in Resources */,
 				D107FB8E1E238A13000526BF /* MenuView.xib in Resources */,
 				D1A2A79C1E135772007A978B /* Main.storyboard in Resources */,
-				D18E0CDF1E1F878D00D98353 /* 123.pdf in Resources */,
 				D1DEC68F1E1B767B00C2A165 /* LoginView.xib in Resources */,
 				D107FB951E238F30000526BF /* ScanViewController.xib in Resources */,
 				D107FB3A1E232918000526BF /* CreatBusinessVC.xib in Resources */,
@@ -835,7 +859,9 @@
 				D18E0CC21E1F6E2B00D98353 /* ZFCommonHelper.m in Sources */,
 				D18E0CC31E1F6E2B00D98353 /* ZFDownloadManager.m in Sources */,
 				D19D37B21E2473ED004040DC /* CameraFocalReticule.m in Sources */,
+				D1AB4F651E25E636008D6A90 /* ScanViewHeader.m in Sources */,
 				D18E0CB21E1F658700D98353 /* HSDownloadManager.m in Sources */,
+				D1BAC04A1E2712E700CD8833 /* DownloadVC.m in Sources */,
 				D19D37BB1E2473ED004040DC /* Constants.m in Sources */,
 				D17C7B3C1E1B8C0500A9801E /* NetWorkManager.m in Sources */,
 				D18E0CCE1E1F6E4700D98353 /* ZFDownloadingCell.m in Sources */,
@@ -857,7 +883,9 @@
 				D18E0CD81E1F838600D98353 /* UIImage+Color.m in Sources */,
 				D107FB841E237C1C000526BF /* FileManager.m in Sources */,
 				D125A4121E1B37E500A4073A /* BaseNaviController.m in Sources */,
+				D175270C1E2639A1000135CE /* ExampleView.m in Sources */,
 				D119D6311E1C9AD50038E7AC /* BaseScrollView.m in Sources */,
+				D1BAC04E1E27355D00CD8833 /* UploadViewController.m in Sources */,
 				D19D37BE1E247450004040DC /* TakePhotoViewController.m in Sources */,
 				D1DEC68D1E1B766D00C2A165 /* LoginView.m in Sources */,
 				D1A2A7961E135772007A978B /* AppDelegate.m in Sources */,

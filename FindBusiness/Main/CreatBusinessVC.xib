@@ -82,7 +82,7 @@
                     <color key="textColor" red="0.2901960784" green="0.2901960784" blue="0.2901960784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Pjp-Xg-6me">
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入商机名称" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Pjp-Xg-6me">
                     <rect key="frame" x="84" y="26" width="276" height="25"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="25" id="WkW-80-cTS"/>
@@ -90,6 +90,9 @@
                     <nil key="textColor"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="mbG-5z-Cfa"/>
+                    </connections>
                 </textField>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tug-dm-0WL">
                     <rect key="frame" x="84" y="56" width="276" height="2"/>
@@ -98,14 +101,17 @@
                         <constraint firstAttribute="height" constant="2" id="cOz-Ex-EES"/>
                     </constraints>
                 </view>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8EY-Q4-SBj">
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="输入整数数字" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8EY-Q4-SBj">
                     <rect key="frame" x="84" y="272" width="258" height="25"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="25" id="v90-v8-hRq"/>
                     </constraints>
                     <nil key="textColor"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits"/>
+                    <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="O3s-U9-WOW"/>
+                    </connections>
                 </textField>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A9k-Ih-01Y">
                     <rect key="frame" x="84" y="302" width="258" height="2"/>
@@ -114,14 +120,17 @@
                         <constraint firstAttribute="height" constant="2" id="0gC-0U-zmt"/>
                     </constraints>
                 </view>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mBo-Js-Vxc">
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="保留两位有效数字" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mBo-Js-Vxc">
                     <rect key="frame" x="84" y="319" width="250" height="25"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="25" id="0HQ-aS-yoM"/>
                     </constraints>
                     <nil key="textColor"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits"/>
+                    <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="zBB-2g-V2M"/>
+                    </connections>
                 </textField>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="01B-gF-jZI">
                     <rect key="frame" x="84" y="349" width="250" height="2"/>
@@ -215,9 +224,9 @@
                     </connections>
                 </button>
                 <button opaque="NO" tag="103" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6MV-ME-BJL">
-                    <rect key="frame" x="185" y="226" width="130" height="45"/>
+                    <rect key="frame" x="185" y="226" width="100" height="45"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="130" id="Gw4-Jx-iAb"/>
+                        <constraint firstAttribute="width" constant="100" id="Gw4-Jx-iAb"/>
                         <constraint firstAttribute="height" constant="45" id="yQt-Ep-mzd"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -230,9 +239,9 @@
                     </connections>
                 </button>
                 <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oKm-WH-cQA">
-                    <rect key="frame" x="185" y="171" width="130" height="45"/>
+                    <rect key="frame" x="185" y="171" width="110" height="45"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="130" id="Mgv-h1-I7P"/>
+                        <constraint firstAttribute="width" constant="110" id="Mgv-h1-I7P"/>
                         <constraint firstAttribute="height" constant="45" id="umN-7d-X1o"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -273,7 +282,7 @@
                         <action selector="btnAction:" destination="-1" eventType="touchUpInside" id="UbX-S8-WLz"/>
                     </connections>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="你好" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="diQ-a8-sHo">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="diQ-a8-sHo">
                     <rect key="frame" x="82" y="77" width="278" height="17"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="17" id="WTb-r2-aNf"/>

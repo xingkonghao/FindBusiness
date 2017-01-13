@@ -13,6 +13,7 @@
     NSArray *_exampleArr;
     FileManager *_fileManager;
     NSString *_currentCategory;
+    NSInteger _limitNum;
 }
 @property(nonatomic,strong)NSDictionary *params;
 @property (nonatomic,strong)NSArray *categoryArr;
@@ -27,7 +28,14 @@
         _fileManager = [[FileManager alloc]init];
         self.categoryArr = @[@"大门及周边",@"主要建筑",@"车间及设备",@"仓储及存货",@"消防安保",@"电气灯具",@"其他照片"];
         _currentCategory = @"大门及周边";
-        _exampleArr = @[@"demo_dmjzb",@"demo_zyjz",@"demo_cjjsb",@"demo_ccjch",@"demo_xfab",@"demo_dqdj",@"demo_qtzp"];
+        _exampleArr = @[@"demo_dmjzb",@"demo_zyjz",@"demo_cjjsb",@"demo_ccjch",@"demo_xfjab",@"demo_dqdj",@"demo_qtzp"];
+        _limitNum = 60 ;
+        NSMutableDictionary *limitInfo =  [NSMutableDictionary dictionaryWithDictionary:[FileManager getLimitData]];
+        if (limitInfo.allKeys.count>0) {
+            NSInteger num = [limitInfo[@"limitNum"] integerValue];
+            _limitNum = 60 - num;
+        }
+        
     }
     return self;
 }
@@ -100,7 +108,7 @@
     [self.catogoryButton addTarget:self action:@selector(catogorySelect:) forControlEvents:UIControlEventTouchUpInside];
     //照片数量
     _imageNum = [[UILabel alloc] initWithFrame:CGRectMake(0,CGRectGetMaxY(self.catogoryButton.frame)+10,BarWidth, 20)];
-    _imageNum.text = @"总剩余张数：60";
+    _imageNum.text = [NSString stringWithFormat:@"总剩余张数：%ld",_limitNum];
     _imageNum.textColor = MainColor;
     _imageNum.font = [UIFont systemFontOfSize:12];
     _imageNum.textAlignment = NSTextAlignmentCenter;
@@ -182,6 +190,7 @@
     cell.textLabel.textColor = [UIColor whiteColor];
     cell.backgroundColor = MainColor;
     [self.catogoryButton setTitle:self.categoryArr[indexPath.row] forState:UIControlStateNormal];
+    _currentCategory = self.categoryArr[indexPath.row];
     _resultImageView.image = [UIImage imageNamed:_exampleArr[indexPath.row]];
     _resultImageView.hidden = NO;
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(imageHidden) object:nil];
@@ -326,7 +335,11 @@
     btn.selected = !btn.selected;
 }
 - (void) shutterCamera{
-    
+    if (_limitNum==0) {
+        [DFYGProgressHUD showProgressHUDWithMode:ProgressHUDModeOnlyText withText:@"最多上传60张" afterDelay:1.5 isTouched:YES
+                                          inView:nil];
+        return;
+    }
     AVCaptureConnection * videoConnection = [self.stillImageOutput connectionWithMediaType:AVMediaTypeVideo];
     if (!videoConnection) {
         NSLog(@"take photo failed!");
@@ -338,7 +351,16 @@
             return;
         }
         NSData * imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
-//        [_fileManager writeImageToDisk:imageData imageName:self.params[@"name"]];
+
+        [FileManager writeData:imageData toDiskWithBusinessName:_params[@"name"] category:_currentCategory];
+        
+        NSMutableDictionary *limitInfo =  [NSMutableDictionary dictionaryWithDictionary:[FileManager getLimitData]];
+        
+        _limitNum --;
+        [limitInfo setObject:[NSNumber numberWithInteger:_limitNum] forKey:@"limitNum"];
+    
+        _imageNum.text = [NSString stringWithFormat:@"总剩余张数：%ld",_limitNum];
+        //        [_fileManager writeImageToDisk:imageData imageName:self.params[@"name"]];
      
 //        UIImage * image = [UIImage imageWithData:imageData];
 ////        self.resultImageView.image = image;

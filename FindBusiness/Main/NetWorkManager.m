@@ -335,30 +335,35 @@ static NetWorkManager *network = nil;
     }];
     
 }
-- (NSURLSessionDataTask*)updateFile:(NSArray*)fileData url:(NSString*)url parameters:(NSMutableDictionary*)params viewControler:(UIViewController*)vc success:(void(^)(id result))result failure:(void(^)(NSError *  error))failure;
+- (NSURLSessionDataTask*)updateFile:(NSArray*)fileData url:(NSString*)url parameters:(NSMutableDictionary*)params viewControler:(UIViewController*)vc progressBlock:(nullable void (^)(NSProgress * _Nonnull))uploadProgressBlock success:(void(^)(id result))result failure:(void(^)(NSError *  error))failure;
 {
     
     if ([kNetworkType isEqualToString:kNoNetwork]) {
         failure(nil);
         return nil;
     }
-    
-    
+    url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    [params removeObjectForKey:@"fileId"];
+    [params setObject:@"file" forKey:@"fname"];
+    [params removeObjectForKey:@"state"];
     AFHTTPSessionManager *manager = [self HTTPSessionManager];
     
     return  [manager POST:url parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         // int index = 0;
-        for(UIImage *image in fileData)
-        {
-            NSString* tempFileName = [NSString stringWithFormat:@"%@.png",@"name"];
-            NSData *imageData = UIImageJPEGRepresentation(image, 0.1);
-            NSLog(@"%fKB",imageData.length/1024.0);
-            [formData appendPartWithFileData:imageData name:@"file" fileName:tempFileName mimeType:@"image/png"];
-            // index ++;
-        }
+        NSData *da = UIImagePNGRepresentation([UIImage imageNamed:@"demo_ccjch"]);
+
+        [formData appendPartWithFileData:da name:@"file" fileName:[NSString stringWithFormat:@"%@.zip",params[@"name"]] mimeType:@"application/zip"];
+
+//        for(NSData *data in fileData)
+//        {
+//            NSLog(@"%fKB",data.length/1024.0);
+//            NSData *da = UIImagePNGRepresentation([UIImage imageNamed:@""]);
+//            [formData appendPartWithFileData:da name:@"file" fileName:[NSString stringWithFormat:@"%@.zip",params[@"name"]] mimeType:@"application/zip"];
+//            // index ++;
+//        }
         
     } progress:^(NSProgress * _Nonnull uploadProgress) {
-        
+        uploadProgressBlock(uploadProgress);
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         result(responseObject);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {

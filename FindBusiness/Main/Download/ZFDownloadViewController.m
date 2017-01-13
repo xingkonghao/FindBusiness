@@ -15,6 +15,9 @@
 #define  DownloadManager  [ZFDownloadManager sharedDownloadManager]
 
 @interface ZFDownloadViewController ()<ZFDownloadDelegate,UITableViewDataSource,UITableViewDelegate>
+{
+    NSInteger _type;
+}
 //@property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) UITableView *tableView;
 
@@ -24,7 +27,13 @@
 
 @implementation ZFDownloadViewController
 
-
+-(instancetype)initWithType:(NSInteger)type;
+{
+    if (self = [super init]) {
+        _type = type;
+    }
+    return self;
+}
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -34,11 +43,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self creatNavi];
-    self.title = @"下载管理";
-    self.tableView = [[UITableView alloc]initWithFrame:self.view.frame style:UITableViewStylePlain];
+//    self.automaticallyAdjustsScrollViewInsets = NO;
+//    self.edgesForExtendedLayout = UIRectEdgeNone;
+    self.view.backgroundColor =[UIColor greenColor];
+//    [self creatNavi];
+//    self.title = @"下载管理";
+    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0,0, SCREEN_WIDTH, self.view.frame.size.height-64) style:UITableViewStylePlain];
     self.tableView.tableFooterView = [UIView new];
-    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, -49, 0);
+//    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
     self.tableView.rowHeight = 70;
     [self.tableView registerNib:[UINib nibWithNibName:@"ZFDownloadedCell" bundle:nil] forCellReuseIdentifier:@"ZFDownloadedCell"];
     [self.tableView registerNib:[UINib nibWithNibName:@"ZFDownloadingCell" bundle:nil] forCellReuseIdentifier:@"ZFDownloadingCell"];
@@ -54,7 +66,7 @@
     back.frame = CGRectMake(0,20, 45,44);
     
     UIImage *image = [UIImage imageNamed:@"back"];
-    image = [image imageWithColor:[UIColor blackColor]];
+//    image = [image imageWithColor:[UIColor blackColor]];
     [back setImage:image forState:UIControlStateNormal];
     [back addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:back];
@@ -69,8 +81,8 @@
     NSMutableArray *downladed = DownloadManager.finishedlist;
     NSMutableArray *downloading = DownloadManager.downinglist;
     self.downloadObjectArr = @[].mutableCopy;
-    [self.downloadObjectArr addObject:downladed];
-    [self.downloadObjectArr addObject:downloading];
+  
+    [self.downloadObjectArr addObject:_type==0?downladed:downloading];
     [self.tableView reloadData];
 }
 
@@ -88,7 +100,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -99,12 +111,12 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0) {
+    if (_type == 0) {
         ZFDownloadedCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ZFDownloadedCell"];
         ZFFileModel *fileInfo = self.downloadObjectArr[indexPath.section][indexPath.row];
         cell.fileInfo = fileInfo;
         return cell;
-    } else if (indexPath.section == 1) {
+    } else if (_type == 1) {
         ZFDownloadingCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ZFDownloadingCell"];
         ZFHttpRequest *request = self.downloadObjectArr[indexPath.section][indexPath.row];
         if (request == nil) { return nil; }
@@ -127,7 +139,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section==0) {
+    if (_type==0) {
         ZFFileModel *fileInfo = self.downloadObjectArr[indexPath.section][indexPath.row];
         PDFScanVC *vc = [[PDFScanVC alloc]initWithFilePath:fileInfo];
         [self.navigationController pushViewController:vc animated:YES];
@@ -147,10 +159,10 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0) {
+    if (_type == 0) {
         ZFFileModel *fileInfo = self.downloadObjectArr[indexPath.section][indexPath.row];
         [DownloadManager deleteFinishFile:fileInfo];
-    }else if (indexPath.section == 1) {
+    }else if (_type == 1) {
         ZFHttpRequest *request = self.downloadObjectArr[indexPath.section][indexPath.row];
         [DownloadManager deleteRequest:request];
     }
@@ -159,7 +171,7 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    return @[@"下载完成",@"下载中"][section];
+    return  _type==0?@"下载完成":@"下载中";
 }
 
 #pragma mark - ZFDownloadDelegate

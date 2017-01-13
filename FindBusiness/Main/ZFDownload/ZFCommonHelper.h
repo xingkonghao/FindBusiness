@@ -22,10 +22,11 @@
 // THE SOFTWARE.
 
 #import <Foundation/Foundation.h>
+
 #import <UIKit/UIKit.h>
 
 // 下载文件的总文件夹
-#define BASE       @"ZFDownLoad"
+#define BASE       User_UM
 // 完整文件路径
 #define TARGET     @"CacheList"
 // 临时文件夹名称

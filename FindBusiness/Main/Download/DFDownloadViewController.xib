@@ -33,9 +33,6 @@
                     <constraint firstItem="XeX-97-kAq" firstAttribute="top" secondItem="uoG-MC-mdV" secondAttribute="bottom" id="lA2-aC-6xZ"/>
                 </constraints>
             </view>
-            <connections>
-                <outlet property="tableView" destination="uoG-MC-mdV" id="wV3-9P-P0o"/>
-            </connections>
             <point key="canvasLocation" x="-808" y="1213"/>
         </viewController>
     </objects>

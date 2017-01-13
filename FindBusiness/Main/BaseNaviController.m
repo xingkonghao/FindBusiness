@@ -18,7 +18,7 @@
     [super viewDidLoad];
 
     [self.navigationBar setBarTintColor:[UIColor colorWithRed:253/255.0 green:152/255.0 blue:38/255.0 alpha:1]];
-
+    [self.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

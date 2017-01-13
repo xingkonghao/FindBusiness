@@ -95,6 +95,8 @@ typedef void(^handler)(NSString*userName,NSString*um);
                 if ([strs.firstObject isEqualToString:@"true"]) {
                     self.handler(self.userName.text,strs.lastObject);
                     [self saveUserInfoWithUM:strs.lastObject];
+                    [[ZFDownloadManager sharedDownloadManager] loadData];
+
                 }else
                 {
                     [DFYGProgressHUD showProgressHUDWithMode:ProgressHUDModeOnlyText withText:string afterDelay:1 isTouched:YES inView:nil];

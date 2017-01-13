@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface ZFDownloadViewController : UIViewController
-
+-(instancetype)initWithType:(NSInteger)type;
 @end

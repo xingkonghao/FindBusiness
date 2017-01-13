@@ -63,7 +63,7 @@
  *  @param result   成功回调
  *  @param failure  失败回调
  */
-- (NSURLSessionDataTask*)updateFile:(NSArray*)fileData url:(NSString*)url parameters:(NSMutableDictionary*)params viewControler:(UIViewController*)vc success:(void(^)(id result))result failure:(void(^)(NSError *  error))failure;
+- (NSURLSessionDataTask*)updateFile:(NSArray*)fileData url:(NSString*)url parameters:(NSMutableDictionary*)params viewControler:(UIViewController*)vc progressBlock:(nullable void (^)(NSProgress * _Nonnull))uploadProgressBlock success:(void(^)(id result))result failure:(void(^)(NSError *  error))failure;
 /**
  *  清除用户信息
  */

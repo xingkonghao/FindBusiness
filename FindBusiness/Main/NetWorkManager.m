@@ -343,24 +343,24 @@ static NetWorkManager *network = nil;
         return nil;
     }
     url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    [params removeObjectForKey:@"fileId"];
-    [params setObject:@"file" forKey:@"fname"];
-    [params removeObjectForKey:@"state"];
+//    [params removeObjectForKey:@"fileId"];
+//    [params setObject:@"file" forKey:@"fname"];
+//    [params removeObjectForKey:@"state"];
     AFHTTPSessionManager *manager = [self HTTPSessionManager];
     
     return  [manager POST:url parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         // int index = 0;
-        NSData *da = UIImagePNGRepresentation([UIImage imageNamed:@"demo_ccjch"]);
+//        NSData *da = UIImagePNGRepresentation([UIImage imageNamed:@"demo_ccjch"]);
+//
+//        [formData appendPartWithFileData:da name:@"file" fileName:[NSString stringWithFormat:@"%@.zip",params[@"name"]] mimeType:@"application/zip"];
 
-        [formData appendPartWithFileData:da name:@"file" fileName:[NSString stringWithFormat:@"%@.zip",params[@"name"]] mimeType:@"application/zip"];
-
-//        for(NSData *data in fileData)
-//        {
-//            NSLog(@"%fKB",data.length/1024.0);
+        for(NSData *data in fileData)
+        {
+            NSLog(@"%fKB",data.length/1024.0);
 //            NSData *da = UIImagePNGRepresentation([UIImage imageNamed:@""]);
-//            [formData appendPartWithFileData:da name:@"file" fileName:[NSString stringWithFormat:@"%@.zip",params[@"name"]] mimeType:@"application/zip"];
-//            // index ++;
-//        }
+            [formData appendPartWithFileData:data name:@"file" fileName:[NSString stringWithFormat:@"%@.zip",params[@"name"]] mimeType:@"application/zip"];
+            // index ++;
+        }
         
     } progress:^(NSProgress * _Nonnull uploadProgress) {
         uploadProgressBlock(uploadProgress);

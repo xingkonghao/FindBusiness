@@ -16,4 +16,4 @@ NSString * const loginUrl = @"http://139.224.196.91:8888/WebFileReceiver/login?"
 
 NSString * const regUrl = @"http://139.224.196.91:8888/WebFileReceiver/reg?";
 
-NSString * const uploadUrl = @"http://139.224.196.91:8888/WebFileReceiver/upZip";
+NSString * const uploadUrl = @"http://139.224.196.91:8888/interfaceserve/AjaxUploadFileServlet";

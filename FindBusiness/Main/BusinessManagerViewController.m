@@ -74,7 +74,7 @@
                         [DFYGProgressHUD showProgressHUDWithMode:ProgressHUDModeOnlyText withText:@"上传后不能修改" afterDelay:1.5 isTouched:YES inView:nil];
                         break ;
                     }
-
+                    
                     UploadViewController *vc = [[UploadViewController alloc]initWithParams:_menuView.params];
                     [self.navigationController pushViewController:vc animated:YES];
                 }
@@ -85,7 +85,7 @@
                         [DFYGProgressHUD showProgressHUDWithMode:ProgressHUDModeOnlyText withText:@"上传后不能修改" afterDelay:1.5 isTouched:YES inView:nil];
                         break ;
                     }
-
+                    
                     CreatBusinessVC *vc = [[CreatBusinessVC alloc]initWithDict:_menuView.params];
                     [self.navigationController pushViewController:vc animated:YES];
                 }break;
@@ -96,17 +96,17 @@
                         break ;
                     }
                     tempDict = _menuView.params;
-                    UIImagePickerController *picker = [[UIImagePickerController alloc]init];
-                    picker.delegate = self;
-                    [self presentViewController:picker animated:YES completion:nil];
-//                    self.scanView.hidden = NO;
+                    //                    UIImagePickerController *picker = [[UIImagePickerController alloc]init];
+                    //                    picker.delegate = self;
+                    //                    [self presentViewController:picker animated:YES completion:nil];
+                    self.scanView.hidden = NO;
                 }break;
                 case 4 :
                 {
                     ScanViewController *vc = [[ScanViewController alloc]initWithParams:_menuView.params];
                     [self.navigationController pushViewController:vc animated:YES];
                 }break;
-
+                    
                 default:
                     break;
             }
@@ -120,22 +120,23 @@
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
 {
     //通过UIImagePickerControllerMediaType判断返回的是照片还是视频
-//    NSString* type = [info objectForKey:UIImagePickerControllerMediaType];
+    //    NSString* type = [info objectForKey:UIImagePickerControllerMediaType];
     UIImage* original = [info objectForKey:UIImagePickerControllerOriginalImage];
     //获取图片裁剪的图
-//    UIImage* edit = [info objectForKey:UIImagePickerControllerEditedImage];
-//    //获取图片裁剪后，剩下的图
-//    UIImage* crop = [info objectForKey:UIImagePickerControllerCropRect];
-//    //获取图片的url
-//    NSURL* url = [info objectForKey:UIImagePickerControllerMediaURL];
-//    //获取图片的metadata数据信息
-//    NSDictionary* metadata = [info objectForKey:UIImagePickerControllerMediaMetadata];
+    //    UIImage* edit = [info objectForKey:UIImagePickerControllerEditedImage];
+    //    //获取图片裁剪后，剩下的图
+    //    UIImage* crop = [info objectForKey:UIImagePickerControllerCropRect];
+    //    //获取图片的url
+    //    NSURL* url = [info objectForKey:UIImagePickerControllerMediaURL];
+    //    //获取图片的metadata数据信息
+    //    NSDictionary* metadata = [info objectForKey:UIImagePickerControllerMediaMetadata];
     //如果是拍照的照片，则需要手动保存到本地，系统不会自动保存拍照成功后的照片
-    NSData *imageData = UIImageJPEGRepresentation(original, 1);
+    NSData *imageData = UIImageJPEGRepresentation(original, 0.1);
+    
     [FileManager writeData:imageData toDiskWithBusinessName:tempDict[@"name"] category:@"大门及周边"];
     //模态方式退出uiimagepickercontroller
     [picker dismissViewControllerAnimated:YES completion:nil];
-//    [picker dismissModalViewControllerAnimated:YES];
+    //    [picker dismissModalViewControllerAnimated:YES];
 }
 -(UIView*)scanView
 {
@@ -148,7 +149,7 @@
             if (isgoOn) {
                 TakePhotoViewController *takeVC = [[TakePhotoViewController alloc]initWithParams:_menuView.params];
                 [self presentViewController:takeVC animated:YES completion:nil];
-
+                
             }
             _scanView.hidden = YES;
         }];
@@ -161,7 +162,7 @@
 -(void)zipData:(NSDictionary*)item
 {
     [self upload:item data:[FileManager zipData:item object:self]];
-
+    
 }
 -(BOOL)OverWriteOperation:(NSString *)file
 {
@@ -176,8 +177,8 @@
 -(void)dealloc
 {
     [[NSNotificationCenter defaultCenter]removeObserver:self];
-
-
+    
+    
 }
 -(void)dataReload
 {
@@ -200,13 +201,13 @@
     back.frame = CGRectMake(0,20, 45,44);
     
     UIImage *image = [UIImage imageNamed:@"back"];
-//    image = [image imageWithColor:[UIColor blackColor]];
+    //    image = [image imageWithColor:[UIColor blackColor]];
     [back setImage:image forState:UIControlStateNormal];
     [back addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:back];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"新建商机" style:UIBarButtonItemStylePlain target:self action:@selector(creatNewBusiness)];
     self.navigationItem.rightBarButtonItem.tintColor = [UIColor whiteColor];
-
+    
 }
 
 -(void)backAction
@@ -240,16 +241,16 @@
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    FileManager 
-//    UIImage *image = [UIImage imageNamed:@"demo_dmjzb"];
-//    NSDictionary *dic = self.dataArr[indexPath.row];
-//    [manager writeImageToDisk:UIImageJPEGRepresentation(image, 1) businessName:dic[@"name"] catogoryname:@"周边"];
+    //    FileManager
+    //    UIImage *image = [UIImage imageNamed:@"demo_dmjzb"];
+    //    NSDictionary *dic = self.dataArr[indexPath.row];
+    //    [manager writeImageToDisk:UIImageJPEGRepresentation(image, 1) businessName:dic[@"name"] catogoryname:@"周边"];
     self.menuView.params = _dataArr[indexPath.row];
     self.menuView.hidden = NO;
 }
 -(void)tableView:(UITableView *)tableView willBeginEditingRowAtIndexPath:(NSIndexPath *)indexPath
 {
-   
+    
 }
 -(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -269,21 +270,21 @@
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-
+    
 }
 #pragma mark netWork
 -(void)upload:(NSDictionary*)dict data:(NSData*)zipData
 {
-   
+    
 }
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

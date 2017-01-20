@@ -65,7 +65,9 @@
     _dongshu.text = [NSString stringWithFormat:@"房屋栋数：%@",_params[@"dongshu"]];
     _mianji.text = [NSString stringWithFormat:@"最大面积：%@",_params[@"mianji"]];
     _xiaofang.text = [NSString stringWithFormat:@"消防设备：%@",_params[@"xiaofang"]];
-    zipData = [FileManager zipData:_params object:self];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        zipData = [FileManager zipData:_params object:self];
+    });
     _zipName.text = [FileManager getDataName:_params];
 }
 
@@ -81,7 +83,7 @@
 -(IBAction)uploadAction:(id)sender
 {
     [self upload:_params];
-
+    
 }
 #pragma mark netWork
 -(void)upload:(NSDictionary*)dict{
@@ -89,30 +91,40 @@
         [DFYGProgressHUD showProgressHUDWithMode:ProgressHUDModeOnlyText withText:@"文件压缩失败" afterDelay:1 isTouched:YES inView:nil];
         return;
     }
-//    NSMutableDictionary *item = [self.params mutableCopy];
-//    [item setValue:@"已上传" forKey:@"state"];
-//    [FileManager addItem:item];
-    [[NSNotificationCenter defaultCenter]postNotificationName:@"uploadSuccess" object:nil];
-  MBProgressHUD *HUD = [DFYGProgressHUD showProgressHUDWithText:@"" isTouched:YES inView:self.view progressTintColor:[UIColor blackColor]];
-    __block MBProgressHUD * weakHUD = HUD;
-    __weak UploadViewController *weakSelf = self;
+    //    NSMutableDictionary *item = [self.params mutableCopy];
+    //    [item setValue:@"已上传" forKey:@"state"];
+    //    [FileManager addItem:item];
+    //    [[NSNotificationCenter defaultCenter]postNotificationName:@"uploadSuccess" object:nil];
+    //    MBProgressHUD *HUD = [DFYGProgressHUD showProgressHUDWithText:@"" isTouched:YES inView:self.view progressTintColor:[UIColor blackColor]];
+    //    __block MBProgressHUD * weakHUD = HUD;
+    //    __weak UploadViewController *weakSelf = self;
+    
+    NSMutableDictionary *params = [dict mutableCopy];
+    [params removeObjectForKey:@"fileId"];
+    [params setObject:@"file" forKey:@"fname"];
+    [params removeObjectForKey:@"state"];
+    [params setObject:zipData forKey:@"file"];
+    //    [[NetWorkManager sharedInstance]requestDataForPOSTWithURL:uploadUrl parameters:params Controller:nil success:^(id responseObject) {
+    //        NSString *resultStr = [[NSString alloc]initWithData:responseObject encoding:NSUTF8StringEncoding];
+    //        NSLog(@"%@",resultStr);
+    //        [DFYGProgressHUD showProgressHUDWithMode:ProgressHUDModeOnlyText withText:resultStr afterDelay:5 isTouched:YES inView:nil];
+    //
+    //    } failure:^(NSError *error) {
+    //        [DFYGProgressHUD showProgressHUDWithMode:ProgressHUDModeOnlyText withText:error.description afterDelay:5 isTouched:YES inView:nil];
+    //
+    //    }];
     [[NetWorkManager sharedInstance]updateFile:@[zipData] url:uploadUrl parameters:[dict mutableCopy] viewControler:nil progressBlock:^(NSProgress * _Nonnull uploadProgress) {
         
         CGFloat progress = (1 * uploadProgress.completedUnitCount/uploadProgress.totalUnitCount);
         NSLog(@"%f",progress);
-
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            weakHUD.progress = progress;
-//            if (progress == 1) {
-//                [weakHUD hide:YES];
-//            }
-//            NSLog(@"%f",progress);
-//        });
-      
+        
     } success:^(id result) {
-//        [weakSelf.params setValue:@"已上传" forKey:@"state"];
-//        [FileManager addItem:self.params];
-        NSLog(@"upload success!");
+        //        [weakSelf.params setValue:@"已上传" forKey:@"state"];
+        //        [FileManager addItem:self.params];
+        NSString *resultStr = [[NSString alloc]initWithData:result encoding:NSUTF8StringEncoding];
+        NSLog(@"%@",resultStr);
+        [DFYGProgressHUD showProgressHUDWithMode:ProgressHUDModeOnlyText withText:resultStr afterDelay:2 isTouched:YES inView:nil];
+        //        NSLog(@"upload success!");
     } failure:^(NSError *error) {
         NSLog(@"%@",error.description);
     }];
@@ -125,13 +137,13 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end
